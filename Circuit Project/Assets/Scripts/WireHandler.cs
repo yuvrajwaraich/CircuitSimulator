@@ -13,6 +13,7 @@ public class WireHandler : MonoBehaviour
     public GameObject start;
     public GameObject end;
     public bool turnedOn;
+    public bool connected;
 
     // Update is called once per frame
     void Update()
@@ -22,9 +23,10 @@ public class WireHandler : MonoBehaviour
             turnedOn = start.GetComponent<InputOutput>().turnedOn;
         }
 
-        if (end != null && end.GetComponent<InputOutput>() != null)
+        if (connected)
         {
             end.GetComponent<InputOutput>().turnedOn = turnedOn;
+            lineRend.SetPosition(1, end.transform.position);
         }
 
         if (lineRend != null)
@@ -52,7 +54,7 @@ public class WireHandler : MonoBehaviour
         currLine.GetComponent<WireHandler>().end = null;
         LineRenderer currLineLineRend = currLine.GetComponent<LineRenderer>();
         currLine.GetComponent<WireHandler>().lineRend = currLineLineRend;
-        currLineLineRend.SetPosition(0, ioDevice.GetComponent<InputOutput>().position);
+        currLineLineRend.SetPosition(0, ioDevice.transform.position);
         currLineLineRend.SetPosition(1, Camera.main.ScreenToWorldPoint(mousePos));
         return currLine;
     }
@@ -64,9 +66,9 @@ public class WireHandler : MonoBehaviour
         if (currLineRend != null)
         {
             GameObject currStart = line.GetComponent<WireHandler>().start;
-            if (lineEnd != null && lineEnd.GetComponent<InputOutput>().position != currStart.GetComponent<InputOutput>().position)
+            if (lineEnd != null && !(lineEnd.GetComponent<InputOutput>().connected) && lineEnd.transform.position != currStart.transform.position)
             {
-                currLineRend.SetPosition(1, lineEnd.GetComponent<InputOutput>().position);
+                currLineRend.SetPosition(1, lineEnd.transform.position);
                 line.GetComponent<WireHandler>().end = lineEnd;
             }
             else

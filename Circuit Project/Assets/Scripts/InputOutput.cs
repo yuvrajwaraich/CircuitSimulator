@@ -6,14 +6,17 @@ public class InputOutput : MonoBehaviour
 {
     // Start is called before the first frame update
     public Vector2 position;
-    public GameObject input;
     SpriteRenderer spriteRenderer;
 
     public bool turnedOn;
+    public bool canOutput;
+    public bool connected;
+    [SerializeField] bool modifyable;
+
     void Start()
     {
         turnedOn = false;
-        input = null;
+        connected = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         position = transform.position;
     }
@@ -33,13 +36,11 @@ public class InputOutput : MonoBehaviour
     private void OnMouseUp()
     {
         GameObject ioDevice = getIODevice(Input.mousePosition);
-        if (ioDevice != null && ioDevice.GetComponent<InputOutput>() != null &&
-                ioDevice.GetComponent<InputOutput>().position == gameObject.GetComponent<InputOutput>().position && input == null)
+        if (modifyable && ioDevice != null && ioDevice.GetComponent<InputOutput>() != null &&
+                ioDevice.GetComponent<InputOutput>().position == gameObject.GetComponent<InputOutput>().position)
         {
             turnedOn = !turnedOn;
         }
-
-
     }
 
     private GameObject getIODevice(Vector2 mousePos)
