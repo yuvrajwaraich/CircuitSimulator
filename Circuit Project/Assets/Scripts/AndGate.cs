@@ -8,7 +8,6 @@ public class AndGate : MonoBehaviour
     GameObject input1;
     GameObject input2;
     GameObject output;
-    RectTransform rectTransform;
 
     float deltaX, deltaY;
 
@@ -18,33 +17,56 @@ public class AndGate : MonoBehaviour
         input1 = transform.Find("IODevice").Find("Input1").gameObject;
         input2 = transform.Find("IODevice").Find("Input2").gameObject;
         output = transform.Find("IODevice").Find("Output").gameObject;
-        rectTransform = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) {
-            Destroy(gameObject);
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameObject gateObj = getGateAt(Input.mousePosition);
+            if (gateObj != null)
+            {
+                Destroy(gameObject);
+            }
+
         }
 
-        if (input1.GetComponent<InputOutput>().turnedOn && input2.GetComponent<InputOutput>().turnedOn) {
+        if (input1.GetComponent<InputOutput>().turnedOn && input2.GetComponent<InputOutput>().turnedOn)
+        {
             output.GetComponent<InputOutput>().turnedOn = true;
-        } else {
+        }
+        else
+        {
             output.GetComponent<InputOutput>().turnedOn = false;
         }
     }
 
-    private void OnMouseDown(){
+    private void OnMouseDown()
+    {
         deltaX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x;
         deltaY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y - transform.position.y;
     }
 
-    private void OnMouseDrag(){
+    private void OnMouseDrag()
+    {
         transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + deltaX, Camera.main.ScreenToWorldPoint(Input.mousePosition).y + deltaY);
     }
 
-    public void createGate(){
+    public void createGate()
+    {
         Instantiate(andGatePrefab, Vector2.zero, Quaternion.identity);
+    }
+
+    private GameObject getGateAt(Vector2 mousePos)
+    {
+        Vector2 ray = Camera.main.ScreenToWorldPoint(mousePos);
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+        if (hit.collider != null && hit.collider.gameObject.name == "AND Gate(Clone)")
+        {
+            return hit.collider.gameObject;
+        }
+
+        return null;
     }
 }

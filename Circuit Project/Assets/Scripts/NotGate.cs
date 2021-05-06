@@ -22,7 +22,12 @@ public class NotGate : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Destroy(gameObject);
+            GameObject gateObj = getGateAt(Input.mousePosition);
+            if (gateObj != null)
+            {
+                Destroy(gameObject);
+            }
+
         }
 
         if (input.GetComponent<InputOutput>().connected)
@@ -46,5 +51,17 @@ public class NotGate : MonoBehaviour
     public void createGate()
     {
         Instantiate(notGatePrefab, Vector2.zero, Quaternion.identity);
+    }
+
+    private GameObject getGateAt(Vector2 mousePos)
+    {
+        Vector2 ray = Camera.main.ScreenToWorldPoint(mousePos);
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+        if (hit.collider != null && hit.collider.gameObject.name == "NOT Gate(Clone)")
+        {
+            return hit.collider.gameObject;
+        }
+
+        return null;
     }
 }

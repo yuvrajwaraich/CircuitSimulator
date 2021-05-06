@@ -56,6 +56,7 @@ public class GameHandler : MonoBehaviour
                 } else {
                     currLine.GetComponent<WireHandler>().end.GetComponent<InputOutput>().connected = true;
                     currLine.GetComponent<WireHandler>().connected = true;
+                    currLine.GetComponent<WireHandler>().end.GetComponent<InputOutput>().connectedWire = currLine;
                 }
             }
         }

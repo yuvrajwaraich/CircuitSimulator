@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8566543174917433884}
   - component: {fileID: 85370022102453315}
   - component: {fileID: 6064119642710316284}
+  - component: {fileID: 7082365522740972536}
   m_Layer: 0
   m_Name: Wire
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   start: {fileID: 0}
   end: {fileID: 0}
   turnedOn: 0
+  connected: 0
 --- !u!120 &6064119642710316284
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -148,3 +150,29 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!61 &7082365522740972536
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8927964881977189017}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1}
+  m_EdgeRadius: 0

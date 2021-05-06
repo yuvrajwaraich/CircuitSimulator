@@ -8,6 +8,8 @@ public class InputOutput : MonoBehaviour
     public Vector2 position;
     SpriteRenderer spriteRenderer;
 
+    public GameObject connectedWire;
+
     public bool turnedOn;
     public bool canOutput;
     public bool connected;
@@ -23,6 +25,15 @@ public class InputOutput : MonoBehaviour
 
     void Update()
     {
+        if (connectedWire != null) {
+            turnedOn = connectedWire.GetComponent<WireHandler>().turnedOn;
+        } else if(!canOutput) {
+            turnedOn = false;
+            connected = false;
+        } else {
+            connected = false;
+        }
+
         if (turnedOn)
         {
             spriteRenderer.color = new Color(1, 0, 0, 1);

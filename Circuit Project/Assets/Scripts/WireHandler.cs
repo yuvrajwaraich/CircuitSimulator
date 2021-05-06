@@ -21,12 +21,19 @@ public class WireHandler : MonoBehaviour
         if (start != null && start.GetComponent<InputOutput>() != null)
         {
             turnedOn = start.GetComponent<InputOutput>().turnedOn;
+            lineRend.SetPosition(0, start.transform.position);
         }
 
         if (connected)
         {
-            end.GetComponent<InputOutput>().turnedOn = turnedOn;
-            lineRend.SetPosition(1, end.transform.position);
+            if (end == null || start == null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                lineRend.SetPosition(1, end.transform.position);
+            }
         }
 
         if (lineRend != null)
